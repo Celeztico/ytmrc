@@ -23,9 +23,45 @@ export async function getState():
       console.log("Rate limited");
       return null;
     }
-    
+
     console.log("API Error:", error);
 
     return null;
   }
+}
+
+export async function sendCommand(command: string, value?: any) {
+  try{
+    await axios.post(
+      `${API_URL}/command`,
+      {
+        command,
+      },
+      {
+        headers: {
+          Authorization: TOKEN,
+        },
+      }
+    );
+  }catch (error) {
+    console.log("Command Error:", error);
+  }
+}
+
+export function playPause() {
+  return sendCommand(
+    "playPause"
+  );
+}
+
+export function nextTrack() {
+  return sendCommand(
+    "next"
+  );
+}
+
+export function previousTrack() {
+  return sendCommand(
+    "previous"
+  );
 }

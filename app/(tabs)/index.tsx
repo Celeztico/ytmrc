@@ -1,5 +1,6 @@
 import { Text, View } from 'react-native';
 import { usePlayerStore } from '../../store/playerStore';
+import PlayBackControl from '../../components/PlayBackControl';
 
 export default function Home() {
 
@@ -54,6 +55,7 @@ export default function Home() {
           >
             Volume:{""}{state.player?.volume}
           </Text>
+          <PlayBackControl />
         </>
       )}
 
