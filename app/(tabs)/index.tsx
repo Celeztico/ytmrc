@@ -1,9 +1,7 @@
 import { Text, View } from 'react-native';
-import { usePlayerSync } from '../../hooks/usePlayerSync';
 import { usePlayerStore } from '../../store/playerStore';
 
 export default function Home() {
-  usePlayerSync();
 
   const state = usePlayerStore((state) => state.state);
   const connected = usePlayerStore((state) => state.connected);
