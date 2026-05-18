@@ -1,64 +1,64 @@
-import { useEffect, useState } from "react";
-import { Text, View } from "react-native";
-
-import { getState } from "../../services/companion";
+import { Text, View } from 'react-native';
+import { usePlayerSync } from '../../hooks/usePlayerSync';
+import { usePlayerStore } from '../../store/playerStore';
 
 export default function Home() {
-  const [state, setState] = useState<any>(null);
+  usePlayerSync();
 
-  useEffect(() => {
-    async function loadState() {
-      const data = await getState();
-
-      console.log(data);
-
-      setState(data);
-    }
-
-    loadState();
-  }, []);
+  const state = usePlayerStore((state) => state.state);
+  const connected = usePlayerStore((state) => state.connected);
 
   return (
     <View
-  style={{
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
-    backgroundColor: "#111",
-  }}
->
-  {state ? (
-    <>
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+        backgroundColor: '#111',
+      }}
+    >
       <Text
         style={{
-          fontSize: 22,
-          marginBottom: 12,
-          color: "#0f0",
+          color: "white",
+          fontSize: 24,
+          marginBottom: 20,
         }}
       >
-        Connected to YTMDesktop
+          {connected ? "Connected" : "Disconnected"}
       </Text>
 
-      <Text>
-        Song: {state.video?.title || "Unknown"}
-      </Text>
+      {state && (
+        <>
+          <Text
+            style={{
+              color: "white",
+              fontSize: 20,
+            }}
+          >
+            {state.video?.title}
+          </Text>
 
-      <Text>
-        Artist: {state.video?.author || "Unknown"}
-      </Text>
+          <Text
+            style={{
+              color: "#aaa",
+              marginTop: 6,
+            }}
+          >
+            {state.video?.author}
+          </Text>
 
-      <Text>
-        Album: {state.video?.album || "Unknown"}
-      </Text>
+          <Text
+            style={{
+              color: "#888",
+              marginTop: 20,
+            }}
+          >
+            Volume:{""}{state.player?.volume}
+          </Text>
+        </>
+      )}
 
-      <Text>
-        Volume: {state.player?.volume}
-      </Text>
-    </>
-  ) : (
-    <Text>Loading...</Text>
-  )}
-</View>
-  );
+    </View>
+  )
 }

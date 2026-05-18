@@ -18,7 +18,12 @@ export async function getState():
     );
 
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
+    if (error.response?.status === 429) {
+      console.log("Rate limited");
+      return null;
+    }
+    
     console.log("API Error:", error);
 
     return null;
