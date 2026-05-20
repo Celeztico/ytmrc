@@ -1,4 +1,5 @@
-import { Pressable, View, Text} from "react-native";
+import { Pressable, View, Text } from "react-native";
+import { Ionicons } from "@expo/vector-icons"
 import { usePlayerStore } from "@/store/playerStore";
 import { nextTrack, playPause, previousTrack } from "@/services/companion";
 
@@ -18,40 +19,48 @@ export default function PlayBackControl() {
   const trackState = usePlayerStore((state) => state.playerState?.player?.trackState);
 
   return (
-      <View
-        style={{
-          flexDirection: "row",
-          marginTop: 30,
-          gap: 20,
-        }}
+    <View
+      style={{
+        flexDirection: "row",
+        marginTop: 30,
+        gap: 20,
+      }}
+    >
+      <Pressable
+        onPress={previousTrack}
+        style={buttonStyle}
       >
-          <Pressable
-            onPress={previousTrack}
-            style={buttonStyle}
-          >
-              <Text style={textStyle}>
-                  ⏮
-              </Text>
-          </Pressable>
-          <Pressable
-            onPress={playPause}
-            style={buttonStyle}
-          >
-              <Text style={textStyle}>
-                  {trackState === 0
-                    ? "▶"
-                    : "⏸"}
-              </Text>
-          </Pressable>
-          <Pressable
-            onPress={nextTrack}
-            style={buttonStyle}
-          >
-              <Text style={textStyle}>
-                  ⏭
-              </Text>
-          </Pressable>
+        <Ionicons
+          name="play-skip-back"
+          size={28}
+          color="white"
+        />
+      </Pressable>
+      <Pressable
+        onPress={playPause}
+        style={buttonStyle}
+      >
+        <Ionicons
+          name={
+            trackState === 0
+              ? "play"
+              : "pause"
+          }
+          size={28}
+          color="white"
+        />
+      </Pressable>
+      <Pressable
+        onPress={nextTrack}
+        style={buttonStyle}
+      >
+        <Ionicons
+          name="play-skip-forward"
+          size={28}
+          color="white"
+        />
+      </Pressable>
 
-      </View>
+    </View>
   );
 }
