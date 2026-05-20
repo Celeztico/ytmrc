@@ -30,12 +30,13 @@ export async function getState():
   }
 }
 
-export async function sendCommand(command: string, value?: any) {
+export async function sendCommand(command: string, data?: any) {
   try{
     await axios.post(
       `${API_URL}/command`,
       {
         command,
+        data,
       },
       {
         headers: {
@@ -65,3 +66,11 @@ export function previousTrack() {
     "previous"
   );
 }
+
+export function setVolume(volume: number) {
+  return sendCommand(
+    "setVolume",
+    volume
+  );
+}
+

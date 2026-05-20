@@ -1,6 +1,7 @@
 import { Text, View } from 'react-native';
 import { usePlayerStore } from '../../store/playerStore';
 import PlayBackControl from '../../components/PlayBackControl';
+import VolumeSlider from '../../components/VolumeSlider';
 
 export default function Home() {
 
@@ -56,6 +57,7 @@ export default function Home() {
             Volume:{""}{state.player?.volume}
           </Text>
           <PlayBackControl />
+          <VolumeSlider />
         </>
       )}
 
