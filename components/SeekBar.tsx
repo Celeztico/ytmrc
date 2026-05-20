@@ -1,17 +1,23 @@
 import { View, Text } from "react-native";
-import { useEffect, useState } from "react";
+//import { useEffect, useState } from "react";
 import Slider from "@react-native-community/slider";
 import { usePlayerStore } from "../store/playerStore";
+import { seekTo } from "@/services/companion";
 
 export default function SeekBar(){
     const state = usePlayerStore((state) => state.state);
 
-    const realProgress = state?.player?.videoProgress || 0;
+    const progress = state?.player?.videoProgress || 0;
+    //const realProgress = state?.player?.videoProgress || 0;
     const duration = state?.video?.durationSeconds || 1;
 
+    /* lags behind realtime
     const [displayProgress, setDisplayProgress] = useState(realProgress);
     useEffect(() => {
-        setDisplayProgress(realProgress);
+        const difference = Math.abs(displayProgress-realProgress);
+        if (difference>2){
+            setDisplayProgress(realProgress);
+        }
     }, [realProgress]);
 
     useEffect(() => {
@@ -25,6 +31,7 @@ export default function SeekBar(){
         }, 1000);
         return () => clearInterval(interval);
     }, [duration]);
+    */
 
     return (
         <View
@@ -39,7 +46,8 @@ export default function SeekBar(){
                     marginBottom: 10,
                 }}
             >
-                {Math.floor(displayProgress)}s
+                {/*{Math.floor(displayProgress)}s lags behind realtime */}
+                {Math.floor(progress)}
                 /
                 {duration}s
             </Text>
@@ -47,7 +55,9 @@ export default function SeekBar(){
                 minimumValue={0}
                 maximumValue={duration}
 
-                value={displayProgress}
+                //value={displayProgress} lags behind realtime
+                value={progress}
+                onSlidingComplete={(value) => seekTo(value)}
 
                 minimumTrackTintColor="#fff"
                 maximumTrackTintColor="#555"
