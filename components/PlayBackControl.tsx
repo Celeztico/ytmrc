@@ -1,4 +1,4 @@
-import { Pressable, View, Text } from "react-native";
+import { Pressable, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons"
 import { usePlayerStore } from "@/store/playerStore";
 import { nextTrack, playPause, previousTrack } from "@/services/companion";
@@ -8,11 +8,6 @@ const buttonStyle = {
   paddingVertical: 16,
   paddingHorizontal: 20,
   borderRadius: 16,
-};
-
-const textStyle = {
-  color: "white",
-  fontSize: 24,
 };
 
 export default function PlayBackControl() {
