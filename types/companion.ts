@@ -9,6 +9,7 @@ export type VideoState = {
 };
 
 export type PlayerState = {
+  trackState: -1 | 0 | 1 | 2;
   videoProgress: number;
   volume: number;
   muted: boolean;

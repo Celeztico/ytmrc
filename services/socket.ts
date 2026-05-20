@@ -2,10 +2,9 @@ import { io, Socket } from "socket.io-client";
 
 // eslint-disable-next-line import/no-unresolved
 import { API_URL, TOKEN } from "@env";
-
 import { usePlayerStore } from "../store/playerStore";
-
 import { CompanionState } from "../types/companion";
+import { getState } from "./companion";
 
 let socket: Socket | null = null;
 
@@ -15,6 +14,7 @@ export function connectSocket() {
   const {
     setState,
     setConnected,
+    setInitialised,
   } = usePlayerStore.getState();
 
   socket = io(
@@ -30,12 +30,19 @@ export function connectSocket() {
 
   socket.on(
     "connect",
-    () => {
+    async () => {
       console.log(
         "Socket connected"
       );
 
       setConnected(true);
+
+      const initialState = await getState();
+      if (initialState){
+        setState(initialState);
+        setInitialised(true);
+      }
+
     }
   );
 
@@ -60,6 +67,7 @@ export function connectSocket() {
       );
 
       setState(data);
+      //setInitialised(true); idk if this is needed anymore but here just incase something breaks coz ofc it might
     }
   );
 

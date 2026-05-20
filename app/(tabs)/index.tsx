@@ -5,9 +5,33 @@ import VolumeSlider from '../../components/VolumeSlider';
 import SeekBar from '../../components/SeekBar';
 
 export default function Home() {
-
   const state = usePlayerStore((state) => state.state);
+  const initialised = usePlayerStore((state) => state.initialised);
   const connected = usePlayerStore((state) => state.connected);
+
+  const trackState = state?.player?.trackState;
+
+  if (!initialised) {
+  return (
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+        backgroundColor: '#111',
+      }}
+    >
+      <Text
+        style={{
+          color: "white",
+        }}
+      >
+        Loading...
+      </Text>
+    </View>
+    );
+}
 
   return (
     <View
@@ -26,10 +50,10 @@ export default function Home() {
           marginBottom: 20,
         }}
       >
-          {connected ? "Connected" : "Disconnected"}
+        {connected ? "Connected" : "Disconnected"}
       </Text>
 
-      {state && (
+      {state?.video !== null ? (
         <>
           <Text
             style={{
@@ -37,7 +61,7 @@ export default function Home() {
               fontSize: 20,
             }}
           >
-            {state.video?.title}
+            {state?.video?.title}
           </Text>
 
           <Text
@@ -46,21 +70,21 @@ export default function Home() {
               marginTop: 6,
             }}
           >
-            {state.video?.author}
+            {state?.video?.author}
           </Text>
-
-          <Text
-            style={{
-              color: "#888",
-              marginTop: 20,
-            }}
-          >
-            Volume:{""}{state.player?.volume}
-          </Text>
-          <SeekBar/>
+          <SeekBar />
           <PlayBackControl />
           <VolumeSlider />
         </>
+      ) : (
+        <Text
+          style={{
+            color: "#888",
+            marginTop: 20,
+          }}
+        >
+          No active playback
+        </Text>
       )}
 
     </View>
