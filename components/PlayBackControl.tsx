@@ -1,4 +1,5 @@
 import { Pressable, View, Text} from "react-native";
+import { usePlayerStore } from "@/store/playerStore";
 import { nextTrack, playPause, previousTrack } from "@/services/companion";
 
 const buttonStyle = {
@@ -14,39 +15,43 @@ const textStyle = {
 };
 
 export default function PlayBackControl() {
-    return (
-        <View
-          style={{
-            flexDirection: "row",
-            marginTop: 30,
-            gap: 20,
-          }}
-        >
-            <Pressable
-              onPress={previousTrack}
-              style={buttonStyle}
-            >
-                <Text style={textStyle}>
-                    ⏮
-                </Text>
-            </Pressable>
-            <Pressable
-              onPress={playPause}
-              style={buttonStyle}
-            >
-                <Text style={textStyle}>
-                    ⏯
-                </Text>
-            </Pressable>
-            <Pressable
-              onPress={nextTrack}
-              style={buttonStyle}
-            >
-                <Text style={textStyle}>
-                    ⏭
-                </Text>
-            </Pressable>
+  const trackState = usePlayerStore((state) => state.state?.player?.trackState);
 
-        </View>
-    );
+  return (
+      <View
+        style={{
+          flexDirection: "row",
+          marginTop: 30,
+          gap: 20,
+        }}
+      >
+          <Pressable
+            onPress={previousTrack}
+            style={buttonStyle}
+          >
+              <Text style={textStyle}>
+                  ⏮
+              </Text>
+          </Pressable>
+          <Pressable
+            onPress={playPause}
+            style={buttonStyle}
+          >
+              <Text style={textStyle}>
+                  {trackState === 0
+                    ? "▶"
+                    : "⏸"}
+              </Text>
+          </Pressable>
+          <Pressable
+            onPress={nextTrack}
+            style={buttonStyle}
+          >
+              <Text style={textStyle}>
+                  ⏭
+              </Text>
+          </Pressable>
+
+      </View>
+  );
 }
