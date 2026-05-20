@@ -74,3 +74,9 @@ export function setVolume(volume: number) {
   );
 }
 
+export function seekTo(seconds: number) {
+  return sendCommand(
+    "seekTo",
+    seconds
+  );
+}

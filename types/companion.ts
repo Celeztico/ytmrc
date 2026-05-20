@@ -5,9 +5,11 @@ export type VideoState = {
   thumbnails: {
     url: string;
   }[];
+  durationSeconds: number;
 };
 
 export type PlayerState = {
+  videoProgress: number;
   volume: number;
   muted: boolean;
   adPlaying: boolean;
