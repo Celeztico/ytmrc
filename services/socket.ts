@@ -12,7 +12,7 @@ export function connectSocket() {
   if (socket) return socket;
 
   const {
-    setState,
+    setPlayerState,
     setConnected,
     setInitialised,
   } = usePlayerStore.getState();
@@ -39,7 +39,7 @@ export function connectSocket() {
 
       const initialState = await getState();
       if (initialState){
-        setState(initialState);
+        setPlayerState(initialState);
         setInitialised(true);
       }
 
@@ -66,7 +66,7 @@ export function connectSocket() {
         "Realtime state update"
       );
 
-      setState(data);
+      setPlayerState(data);
       //setInitialised(true); idk if this is needed anymore but here just incase something breaks coz ofc it might
     }
   );

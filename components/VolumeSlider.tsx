@@ -4,7 +4,7 @@ import { usePlayerStore } from "../store/playerStore";
 import { setVolume } from "../services/companion";
 
 export default function VolumeSlider(){
-    const state = usePlayerStore((state) => state.state);
+    const state = usePlayerStore((state) => state.playerState);
 
     const volume = state?.player?.volume || 0;
 

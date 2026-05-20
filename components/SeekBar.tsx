@@ -5,7 +5,7 @@ import { usePlayerStore } from "../store/playerStore";
 import { seekTo } from "@/services/companion";
 
 export default function SeekBar(){
-    const state = usePlayerStore((state) => state.state);
+    const state = usePlayerStore((state) => state.playerState);
 
     const progress = state?.player?.videoProgress || 0;
     //const realProgress = state?.player?.videoProgress || 0;

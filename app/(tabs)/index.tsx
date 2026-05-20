@@ -5,11 +5,9 @@ import VolumeSlider from '../../components/VolumeSlider';
 import SeekBar from '../../components/SeekBar';
 
 export default function Home() {
-  const state = usePlayerStore((state) => state.state);
+  const state = usePlayerStore((state) => state.playerState);
   const initialised = usePlayerStore((state) => state.initialised);
   const connected = usePlayerStore((state) => state.connected);
-
-  const trackState = state?.player?.trackState;
 
   if (!initialised) {
   return (

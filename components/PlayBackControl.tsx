@@ -15,7 +15,7 @@ const textStyle = {
 };
 
 export default function PlayBackControl() {
-  const trackState = usePlayerStore((state) => state.state?.player?.trackState);
+  const trackState = usePlayerStore((state) => state.playerState?.player?.trackState);
 
   return (
       <View

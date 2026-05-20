@@ -3,22 +3,22 @@ import { create } from "zustand";
 import { CompanionState } from "../types/companion";
 
 type PlayerStore = {
-  state: CompanionState | null;
+  playerState: CompanionState | null;
   connected: boolean;
   initialised: boolean;
 
-  setState: (data: CompanionState) => void;
+  setPlayerState: (data: CompanionState) => void;
   setConnected: (value: boolean) => void;
   setInitialised: (value: boolean) => void;
 };
 
 export const usePlayerStore = create<PlayerStore>((set)=> ({
-  state: null,
+  playerState: null,
   connected: false,
   initialised: false,
 
-  setState: (data) => set({
-    state: data,
+  setPlayerState: (data) => set({
+    playerState: data,
   }),
 
   setConnected: (value) => set({
