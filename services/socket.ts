@@ -30,18 +30,6 @@ export function connectSocket() {
     }
   );
 
-  //testing logs
-  console.log(
-    "Socket active:",
-    socket.active
-  );
-
-  console.log(
-    "Socket connected:",
-    socket.connected
-  );
-  //socket.connect();
-
   socket.on(
     "connect",
     async () => {
