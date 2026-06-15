@@ -8,6 +8,8 @@ import { getState } from "./companion";
 
 let socket: Socket | null = null;
 
+// console.log("CURRENT BACKEND IP:", API_URL); // logs for testing if ip changes till discovery is implemented
+
 export function connectSocket() {
   if (socket) return socket;
 
@@ -27,6 +29,18 @@ export function connectSocket() {
       },
     }
   );
+
+  //testing logs
+  console.log(
+    "Socket active:",
+    socket.active
+  );
+
+  console.log(
+    "Socket connected:",
+    socket.connected
+  );
+  //socket.connect();
 
   socket.on(
     "connect",
@@ -70,6 +84,19 @@ export function connectSocket() {
       //setInitialised(true); idk if this is needed anymore but here just incase something breaks coz ofc it might
     }
   );
+
+  //testing logs
+  /*
+  socket.on(
+    "connect_error",
+    (err) => {
+      console.log(
+        "Socket connect error:",
+        err.message
+      );
+    }
+  );
+  */
 
   return socket;
 }
