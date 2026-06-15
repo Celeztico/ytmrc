@@ -3,6 +3,7 @@ import { View, Text } from "react-native";
 import Slider from "@react-native-community/slider";
 import { usePlayerStore } from "../store/playerStore";
 import { seekTo } from "@/services/companion";
+import { formatTime } from "@/utils/formatTime";
 
 export default function SeekBar(){
     const state = usePlayerStore((state) => state.playerState);
@@ -37,32 +38,50 @@ export default function SeekBar(){
         <View
             style={{
                 width: "100%",
-                marginTop: 30,
+                marginTop: 20,
             }}
         >
-            <Text
+            <View>
+                <Slider
+                    minimumValue={0}
+                    maximumValue={duration ?? 1}
+
+                    //value={displayProgress} lags behind realtime
+                    value={progress ?? 0}
+                    onSlidingComplete={(value) => seekTo(value)}
+
+                    minimumTrackTintColor="#fff"
+                    maximumTrackTintColor="#555"
+                />
+
+            </View>
+
+            <View
                 style={{
-                    color: "white",
-                    marginBottom: 10,
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    marginTop: 4,
                 }}
             >
-                {/*{Math.floor(displayProgress)}s lags behind realtime */}
-                {Math.floor(progress)}
-                /
-                {duration}s
-            </Text>
-            <Slider
-                minimumValue={0}
-                maximumValue={duration}
+                <Text
+                    style={{
+                        fontSize: 14,
+                        color: "#aaa",
+                    }}
+                >
+                    {/*{Math.floor(displayProgress)}s lags behind realtime */}
+                    {formatTime(progress ?? 0)}
+                </Text>
 
-                //value={displayProgress} lags behind realtime
-                value={progress}
-                onSlidingComplete={(value) => seekTo(value)}
-
-                minimumTrackTintColor="#fff"
-                maximumTrackTintColor="#555"
-             />
-
+                <Text
+                    style={{
+                        fontSize: 14,
+                        color: "#aaa",
+                    }}
+                >
+                    {formatTime(duration ?? 0)}
+                </Text>
+            </View>
         </View>
     );
 }

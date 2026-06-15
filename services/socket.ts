@@ -64,9 +64,9 @@ export function connectSocket() {
     (
       data: CompanionState
     ) => {
-      console.log( // to be removed in future to prevent too much logs
-        "Realtime state update"
-      );
+      //console.log( // to be removed in future to prevent too much logs
+      //  "Realtime state update"
+      //);
 
       setPlayerState(data);
       //setInitialised(true); idk if this is needed anymore but here just incase something breaks coz ofc it might
