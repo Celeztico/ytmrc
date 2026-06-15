@@ -64,7 +64,7 @@ export function connectSocket() {
     (
       data: CompanionState
     ) => {
-      console.log(
+      console.log( // to be removed in future to prevent too much logs
         "Realtime state update"
       );
 

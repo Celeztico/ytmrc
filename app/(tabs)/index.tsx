@@ -1,5 +1,6 @@
 import { Text, View } from 'react-native';
 import { usePlayerStore } from '../../store/playerStore';
+import NowPlayingCard from '@/components/NowPlayingCard';
 import PlayBackControl from '../../components/PlayBackControl';
 import VolumeSlider from '../../components/VolumeSlider';
 import SeekBar from '../../components/SeekBar';
@@ -53,6 +54,7 @@ export default function Home() {
 
       {state?.video !== null ? (
         <>
+        {/* old playcard, to be removed later     
           <Text
             style={{
               color: "white",
@@ -70,6 +72,9 @@ export default function Home() {
           >
             {state?.video?.author}
           </Text>
+        */}
+
+          <NowPlayingCard/>
           <SeekBar />
           <PlayBackControl />
           <VolumeSlider />
